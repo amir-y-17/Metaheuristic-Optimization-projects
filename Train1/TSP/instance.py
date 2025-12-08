@@ -1,7 +1,7 @@
 import math
 
 
-def distance_matrix(coords):
+def build_distance_matrix(coords):
     """
     Compute the distance matrix for a list of coordinates.
     """
@@ -26,4 +26,4 @@ class TSPInstance:
 
     def __init__(self, coords):
         self.coords = coords
-        self.distance_matrix = distance_matrix(coords)
+        self.distance_matrix = build_distance_matrix(coords)
