@@ -1,3 +1,6 @@
+import random
+
+
 def total_distance(tour: list, distance_matrix) -> int:
     """Calculate the total distance of the given tour based on the distance matrix."""
 
@@ -12,8 +15,32 @@ def total_distance(tour: list, distance_matrix) -> int:
     return total_dist
 
 
-def generate_random_tour():
-    pass
+def generate_greedy_random_tour(distance_matrix) -> list:
+    """Generate a tour using a greedy randomized approach."""
+
+    num_cities = len(distance_matrix)
+
+    # select a random starting city
+    start_city = random.randint(0, num_cities - 1)
+    tour = [start_city]
+
+    unvisited = set(range(num_cities)) - {start_city}
+
+    while unvisited:
+        # 70% chance to choose the nearest neighbor
+        if random.random() < 0.7:
+            last_city = tour[-1]
+            next_city = min(
+                unvisited, key=lambda city: distance_matrix[last_city][city]
+            )
+        else:
+            # Randomly select the next city
+            next_city = random.choice(list(unvisited))
+
+        tour.append(next_city)
+        unvisited.remove(next_city)
+
+    return tour
 
 
 def nearest_neighbor_tour():
