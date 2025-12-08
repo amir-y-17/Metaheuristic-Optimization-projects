@@ -15,6 +15,13 @@ def total_distance(tour: list, distance_matrix) -> int:
     return total_dist
 
 
+def generate_random_tour(num_cities: int) -> list:
+    """Generate a random tour of the cities."""
+    tour = list(range(num_cities))
+    random.shuffle(tour)
+    return tour
+
+
 def generate_greedy_random_tour(distance_matrix) -> list:
     """Generate a tour using a greedy randomized approach."""
 
@@ -49,3 +56,6 @@ def nearest_neighbor_tour():
 
 def plot_tour():
     pass
+
+
+print(generate_random_tour(5))
