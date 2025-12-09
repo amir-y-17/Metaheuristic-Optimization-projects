@@ -1,2 +1,2 @@
-from .local_search_2opt import local_search_2opt
+from .local_search import *
 from .sa import SA
