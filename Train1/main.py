@@ -1,5 +1,6 @@
 from TSP import *
-from algorithms.local_search_2opt import local_search_2opt
+from algorithms import *
+
 
 cities = read_tsp_file()
 tsp_instance = TSPInstance(cities)
@@ -11,4 +12,17 @@ print("Initial distance : ", total_distance(initial_solution, distance_matrix))
 print("*" * 50)
 
 optimized_solution = local_search_2opt(initial_solution, distance_matrix)
-print("Optimized distance : ", total_distance(optimized_solution, distance_matrix))
+print("Local Search 2-opt: ", total_distance(optimized_solution, distance_matrix))
+
+print("*" * 50)
+sa_optimized_solution = SA_2opt(
+    initial_solution,
+    distance_matrix,
+    1000,
+    0.995,
+    1e-3,
+)
+print(
+    "Simulated Annealing 2-opt: ",
+    total_distance(sa_optimized_solution, distance_matrix),
+)
