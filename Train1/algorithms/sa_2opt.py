@@ -4,6 +4,9 @@ from TSP import *
 
 
 def SA_2opt(initial_tour, distance_matrix, initial_temp, cooling_rate, stopping_temp):
+    """
+    Performs Simulated Annealing using the 2-opt algorithm to improve the given tour.
+    """
 
     current = initial_tour.copy()
     best = initial_tour.copy()
