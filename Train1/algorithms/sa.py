@@ -3,10 +3,21 @@ import random
 from TSP import *
 
 
-def SA_2opt(initial_tour, distance_matrix, initial_temp, cooling_rate, stopping_temp):
+def SA(
+    initial_tour,
+    distance_matrix,
+    initial_temp,
+    cooling_rate,
+    stopping_temp,
+    operator,
+):
     """
-    Performs Simulated Annealing using the 2-opt algorithm to improve the given tour.
+    Performs Simulated Annealing to optimize the given tour using the specified neighborhood operator.
     """
+
+    # -------- Define neighborhood operators --------
+    operators = {"2opt": apply_2opt, "3opt": apply_3_opt}
+    apply_operator = operators[operator]
 
     current = initial_tour.copy()
     best = initial_tour.copy()
@@ -26,8 +37,14 @@ def SA_2opt(initial_tour, distance_matrix, initial_temp, cooling_rate, stopping_
         improved = False
 
         for _ in range(L):
-            i, k = random.sample(range(n), 2)
-            new_tour = apply_2opt(current, min(i, k), max(i, k))
+            if operator == "2opt":
+                i, k = random.sample(range(n), 2)
+                new_tour = apply_operator(current, min(i, k), max(i, k))
+
+            elif operator == "3opt":
+                i, j, k = sorted(random.sample(range(n), 3))
+                new_tour = apply_operator(current, i, j, k, distance_matrix)
+
             new_distance = total_distance(new_tour, distance_matrix)
             delta = new_distance - current_distance
 
