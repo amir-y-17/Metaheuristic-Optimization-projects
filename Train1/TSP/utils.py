@@ -56,6 +56,3 @@ def nearest_neighbor_tour():
 
 def plot_tour():
     pass
-
-
-print(generate_random_tour(5))
