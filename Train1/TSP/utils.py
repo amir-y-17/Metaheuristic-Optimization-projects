@@ -1,4 +1,5 @@
 import random
+import matplotlib.pyplot as plt
 
 
 def total_distance(tour: list, distance_matrix) -> int:
@@ -54,5 +55,30 @@ def nearest_neighbor_tour():
     pass
 
 
-def plot_tour():
-    pass
+def plot_tour(points, tour, title="TSP Tour"):
+    """
+    points: list of [x, y]
+    tour: list of city indices in visiting order
+    """
+
+    # Extract the ordered points based on the tour
+    ordered = [points[i] for i in tour]
+
+    # Separate x and y for plotting
+    xs = [p[0] for p in ordered]
+    ys = [p[1] for p in ordered]
+
+    plt.figure(figsize=(8, 6))
+
+    # Plot the path
+    plt.plot(xs, ys, "-o")
+
+    # Write city numbers next to the points
+    for idx, (x, y) in enumerate(ordered):
+        plt.text(x, y, str(tour[idx]), fontsize=9)
+
+    plt.title(title)
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.grid(True)
+    plt.show()
