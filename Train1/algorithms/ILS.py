@@ -18,13 +18,14 @@ def ILS(
     current_distance = total_distance(current_local_optimum, distance_matrix)
 
     best_tour = current_local_optimum
+    best_tour_distance = current_distance
 
     for _ in range(max_iterations):
 
         # Perturbation: randomly swap 'perturbation_strength' pairs of cities
         perturbed_tour = current_local_optimum.copy()
         n = len(perturbed_tour)
-        
+
         for _ in range(perturbation_strength):
             i, j = random.sample(range(1, n), 2)  # Avoid swapping the starting city
             perturbed_tour[i], perturbed_tour[j] = (
@@ -44,7 +45,8 @@ def ILS(
             current_distance = new_distance
 
             # Update best tour found
-            if new_distance < total_distance(best_tour, distance_matrix):
+            if new_distance < best_tour_distance:
                 best_tour = new_local_optimum
+                best_tour_distance = new_distance
 
     return best_tour
