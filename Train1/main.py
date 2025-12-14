@@ -54,6 +54,27 @@ def run_sa_3opt(tsp_instance, distance_matrix, initial_solution):
     )
 
 
+def run_ils_2opt(tsp_instance, distance_matrix, initial_solution):
+    local_optimum = local_search(initial_solution, distance_matrix, operator="2-opt")
+
+    print(f"Initial distance: {total_distance(local_optimum, distance_matrix)}")
+    print("**" * 50)
+    print("\nRunning Iterated Local Search (ILS)...")
+    sol = ILS(
+        local_optimum,
+        distance_matrix,
+        max_iterations=100,
+        perturbation_strength=2,
+        operator="2-opt",
+    )
+    print("Distance:", total_distance(sol, distance_matrix))
+    plot_tour(
+        tsp_instance.coords,
+        sol,
+        title=f"ILS Distance: {total_distance(sol, distance_matrix)}",
+    )
+
+
 def main_menu():
     cities = read_tsp_file()
     tsp_instance = TSPInstance(cities)
@@ -70,6 +91,7 @@ def main_menu():
         print("2. Local Search (3-opt)")
         print("3. Simulated Annealing (2-opt)")
         print("4. Simulated Annealing (3-opt)")
+        print("5. Iterated Local Search <ILS> (2-opt)")
         print("0. Exit")
         print("=" * 50)
 
@@ -87,6 +109,9 @@ def main_menu():
 
         elif choice == "4":
             run_sa_3opt(tsp_instance, distance_matrix, initial_solution)
+
+        elif choice == "5":
+            run_ils_2opt(tsp_instance, distance_matrix, initial_solution)
 
         elif choice == "0":
             print("Exiting...")
